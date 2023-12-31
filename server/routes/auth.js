@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Student = require('../models/students');
 const Tutor = require('../models/tutors');
-const bcrypt = require('bcrypt');
+const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 // Student Signup
@@ -29,7 +29,7 @@ router.post('/student/signup', async (req, res) => {
         }
 
         // Encrypt the password
-        const encryptedPassword = await bcrypt.hash(studentPassword, 10);
+        const encryptedPassword = await bcryptjs.hash(studentPassword, 10);
 
         // Create a new student
         const newStudent = {
@@ -86,7 +86,7 @@ router.post('/student/login', async (req, res) => {
         }
 
         // Compare passwords
-        const passwordMatch = await bcrypt.compare(password, student.studentPassword);
+        const passwordMatch = await bcryptjs.compare(password, student.studentPassword);
 
         if (!passwordMatch) {
             return res.status(400).json({
