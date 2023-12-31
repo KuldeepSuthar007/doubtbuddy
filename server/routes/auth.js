@@ -139,7 +139,7 @@ router.post('/tutor/signup', async (req, res) => {
         }
 
         // Encrypt the password
-        const encryptedPassword = await bcrypt.hash(tutorPassword, 10);
+        const encryptedPassword = await bcryptjs.hash(tutorPassword, 10);
 
         // Create a new tutor
         const newTutor = {
@@ -199,7 +199,7 @@ router.post('/tutor/login', async (req, res) => {
         }
 
 
-        const passwordMatch = await bcrypt.compare(password, tutor.tutorPassword);
+        const passwordMatch = await bcryptjs.compare(password, tutor.tutorPassword);
 
         if (!passwordMatch) {
             return res.status(400).json({
